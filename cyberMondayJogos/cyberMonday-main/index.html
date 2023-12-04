@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangáS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img class="cyber" src="https://seeklogo.com/images/C/cyber-monday-logo-DFA383C42B-seeklogo.com.png" alt="">
+        </div>
+        <nav class="nav">
+            <a href="">Home</a>
+            <a href="">Carrinho</a>
+            <a href="">Login</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="banner">
+            <div class="text">
+                <h3 class="h3-1">
+                    A melhor época do ano chegou!
+                </h3>
+                <h2>
+                    CYBER <span>MONDAY</span>
+                </h2>
+                <h3 class="h3-2">
+                    Aproveite as ofertas!
+                </h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora consequatur facere explicabo, atque
+                    a qui inventore ab nihil est ipsum, esse beatae recusandae nam deleniti, officia quo. Ipsum, quae
+                    laudantium! Blanditiis aspernatur odit, iure, sit voluptatum ducimus accusantium maiores officiis
+                    optio?
+                </p>
+            </div>
+
+            <div class="img1">
+                <img src="image/ellie.png" alt="" class="ellie">
+            </div>
+        </section>
+
+        <section class="timer">
+            <div class="contagem">
+                <h4 class="cont">
+                    CONTAGEM
+                </h4>
+                <h4 class="regress">
+                    REGRESSIVA
+                </h4>
+                <div id="contador">
+                    0
+                </div>
+                <div id="barraProgresso">
+                    <div id="progresso"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="produtos">
+            <div class="veja">
+                <h2 class="nossos">
+                    Veja nossos produtos!
+                </h2>
+            </div>
+            <div class="produto-linha">
+                <div class="produto">
+                    <div class="imagem">
+                        <img src="image/tlou2.jpg" alt="">
+                    </div>
+                    <div class="infos">
+                        <h3>The last of us 2</h3>
+                        <p>R$120,00</p>
+                    </div>
+                </div>
+                <div class="produto">
+                    <div class="imagem imagem2">
+                        <img src="image/tlou1.jpg" alt="">
+                    </div>
+                    <div class="infos">
+                        <h3>The last of 1</h3>
+                        <p>R$120,00</p>
+                    </div>
+                </div>
+                <div class="produto">
+                    <div class="imagem imagem2">
+                        <img src="image/hfw.jpg" alt="">
+                    </div>
+                    <div class="infos">
+                        <h3>Horizon forbidden</h3>
+                        <p>R$130,00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="final">
+            <div class="logo">
+                <div class="nome-final">
+                    <h1>
+                        Exclusivos
+                    </h1>
+                    <h1 class="dois">
+                        Sua melhor loja online!
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        let posicao;
+        const dataAlvo = new Date('2023-11-27T00:00:00').getTime();
+
+        function calcularDiferenca() {
+            const dataAtual = new Date().getTime();
+            const diferenca = dataAlvo - dataAtual;
+
+            // calcula a diferença em dias, horas, minutos e segundos
+            const diasRestantes = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+            const horasRestantes = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutosRestantes = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+            const segundosRestantes = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+            // se a diferença for menor ou igual a zero, chegamos à data alvo
+            if (diferenca <= 0) {
+                pausarContador();
+                document.getElementById('contador').textContent = 'A Cyber Monday chegou!';
+                document.getElementById('progresso').style.width = '0';
+            } else {
+                // exibe a contagem regressiva de dias, horas, minutos e segundos
+                document.getElementById('contador').textContent = `${diasRestantes}d, ${horasRestantes}h, ${minutosRestantes}min, ${segundosRestantes}seg`;
+
+                // calcula o progresso relativo
+                const progressoRelativo = (diferenca / (1000 * 60 * 60 * 24 * 14)) * 100; // ajuste para uma semana
+
+                // atualiza a barra de progresso
+                document.getElementById('progresso').style.width = Math.max(100 - progressoRelativo, 0) + '%';
+            }
+        }
+
+        function atualizarContador() {
+            calcularDiferenca();
+        }
+
+        function iniciarContador() {
+            posicao = setInterval(atualizarContador, 1000);
+            calcularDiferenca();
+        }
+
+        function pausarContador() {
+            clearInterval(posicao);
+        }
+
+        function reiniciarContador() {
+            pausarContador();
+
+            contador = 0;
+            progresso = 0;
+            document.getElementById('contador').textContent = contador;
+            document.getElementById('progresso').style.width = '0';
+            iniciarContador();
+        }
+
+        // inicia o contador assim que a página é carregada
+        window.onload = iniciarContador;
+    </script>
+
+</body>
+
+</html>
